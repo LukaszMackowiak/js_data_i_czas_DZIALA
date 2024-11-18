@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="zegar">
+
+    </div>
+    <div id="odl">
+
+    </div>
+
+    <script>
+        function czas_czas(){
+            let czas = new Date();
+            const zegar = document.getElementById('zegar');
+
+            let godzina = czas.getHours();
+            let minuta = czas.getMinutes();
+            let sekunda = czas.getSeconds();
+
+            if (godzina < 10) {
+                godzina = '0' + godzina;
+            }
+
+            if (minuta < 10) {
+                minuta = '0' + minuta;
+            }
+
+            if (sekunda < 10) {
+                sekunda = '0' + sekunda;
+            }
+
+            zegar.innerHTML = 'Dzisiaj jest ' + czas.getDate() + '.' + (czas.getMonth() + 1) + '.'
+            + czas.getFullYear() + '<br>' + 'Aktualna godzina: ' + godzina + ':' + minuta + ':'
+            + sekunda + '<br>';
+            setInterval(czas_czas,1000);
+        }
+        czas_czas();
+
+        function odliczanie(){
+            let czas1 = new Date();
+            let czas2 = new Date('November 18, 2024 13:19:00');
+            const odl = document.getElementById('odl');
+            data1 = czas1.getTime();
+            data2 = czas2.getTime();
+            wynik = data2 - data1;
+
+            wynik_d = Math.floor(wynik / (1000*60*60*24));
+            wynik_h = Math.floor(wynik / (1000*60*60) - (wynik_d * 24));
+            wynik_m = Math.floor(wynik / (1000*60) - (wynik_d * 60*24) - (wynik_h*60));
+            wynik_s = Math.floor(wynik / (1000) - (wynik_d * 60*60*24) - (wynik_h * 60*60) - (wynik_m * 60));
+
+            odl.innerHTML = 'Do Nowego Roku pozostało ' + wynik_d + ' dni, ' + wynik_h + ' godzin, ' + wynik_m
+            + ' minut, ' + wynik_s + ' sekund. <br>';
+
+            let x=setTimeout("odliczanie()",1000)
+            if (wynik<0){
+                clearTimeout(x)
+                odl.innerHTML = 'Koniec odliczania';
+            }
+        }
+
+        odliczanie();
+    </script>
+</body>
+</html>
